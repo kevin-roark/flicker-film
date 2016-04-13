@@ -1,40 +1,20 @@
 
-/// Score
+/// Setup
 
 var renderer = new frampton.Renderer({
   mediaConfig: mediaConfig,
-  timeToLoadVideo: 5000,
+  timeToLoadVideo: 11000,
   videoSourceMaker: function(filename) {
     return '/media/' + filename;
   }
 });
 
-var loadingIndicator = document.querySelector('.loading-indicator');
-var startTime = new Date();
-function changeLoadingColor() {
-  var timeSinceStart = (new Date()) - startTime;
-  var percentLoaded = Math.min(1, timeSinceStart / loadTime);
-
-  loadingIndicator.style.height = (50 + percentLoaded * 250) + 'px';
-}
-
-changeLoadingColor();
-var loadingInterval = setInterval(changeLoadingColor, 100);
-
-var framesData = frampton.util.choice(mediaConfig.frames);
-var colorSegment = new frampton.ColorSegment(framesData);
-colorSegment.loop = true;
-
-var track = frampton.util.choice(mediaConfig.audio);
-var audioSegment = new frampton.AudioSegment(track);
-audioSegment.preferHTMLAudio = true;
-audioSegment.loop = true;
-
 var loadTime = renderer.timeToLoadVideo;
-renderer.scheduleSegmentRender(colorSegment, loadTime);
-renderer.scheduleSegmentRender(audioSegment, loadTime);
+var titleFadeTime = 4666;
+var startLoadingIndicatorTime = titleFadeTime + 1200;
+var totalLoadingIndicatorTime = loadTime - startLoadingIndicatorTime - 800;
 
-var titleEl = document.querySelector('.film-title');
+/// DOM
 
 var muteButton = document.querySelector('.mute-button');
 var isMuted = false;
@@ -54,11 +34,48 @@ window.addEventListener('keypress', function(ev) {
   }
 }, false);
 
+var loadingIndicator = document.querySelector('.loading-indicator');
+var loadingStartTime, loadingInterval;
+
+function changeLoadingColor() {
+  var timeSinceStart = (new Date()) - loadingStartTime;
+  var percentLoaded = Math.min(1, timeSinceStart / totalLoadingIndicatorTime);
+  console.log(percentLoaded);
+
+  loadingIndicator.style.height = (50 + percentLoaded * 250) + 'px';
+}
+
 setTimeout(function() {
-  loadingIndicator.classList.add('transparent');
+  var titleEl = document.querySelector('.film-title');
+  titleEl.classList.add('transparent');
+}, titleFadeTime);
+
+setTimeout(function() {
+  loadingIndicator.style.opacity = 1.0;
+
+  loadingStartTime = new Date();
+  changeLoadingColor();
+  loadingInterval = setInterval(changeLoadingColor, 100);
+}, startLoadingIndicatorTime);
+
+setTimeout(function() {
+  loadingIndicator.style.opacity = 0;
+}, loadTime - 1200);
+
+setTimeout(function() {
   clearInterval(loadingInterval);
 }, loadTime);
 
-setTimeout(function() {
-  titleEl.classList.add('transparent');
-}, loadTime + 5000);
+/// Framptoning
+
+var framesData = frampton.util.choice(mediaConfig.frames);
+var colorSegment = new frampton.ColorSegment(framesData);
+colorSegment.loop = true;
+
+var track = frampton.util.choice(mediaConfig.audio);
+var audioSegment = new frampton.AudioSegment(track);
+audioSegment.preferHTMLAudio = true;
+audioSegment.loop = true;
+
+renderer.scheduleSegmentRender(colorSegment, loadTime);
+renderer.scheduleSegmentRender(audioSegment, loadTime);
