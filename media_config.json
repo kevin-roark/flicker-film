@@ -1,0 +1,20 @@
+{
+  "path": "media",
+  "videos": [],
+  "audio": [{
+    "filename": "flicker.mp3",
+    "duration": 1593.872,
+    "volumeInfo": {
+      "mean": -26.8,
+      "max": -5
+    },
+    "tags": []
+  }],
+  "frames": [{
+    "filename": "flicker.frames.json",
+    "duration": 1593.8,
+    "fps": 25,
+    "numberOfFrames": 39845,
+    "tags": []
+  }]
+}
