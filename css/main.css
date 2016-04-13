@@ -41,19 +41,29 @@ body {
  * VIDEO
  */
 
-.film-title {
-  box-sizing: border-box;
+.work-note-wrapper {
   position: fixed;
-  padding: 40px;
   left: 0; width: 100%; text-align: center;
-  top: 30%;
+  top: 25%;
+  z-index: 1;
+}
+
+.work-note {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 40px;
+  max-width: 600px;
 
   font-family: "Times New Roman", serif;
   color: white;
-  font-size: 50px;
+  font-size: 40px;
+  line-height: 1.25;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.2);
-  z-index: 1;
 }
+  .work-note a {
+    color: inherit;
+    text-decoration: underline;
+  }
 
 .loading-indicator {
   position: fixed;
