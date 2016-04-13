@@ -11,7 +11,7 @@
     "tags": []
   }],
   "frames": [{
-    "filename": "flicker.frames.json",
+    "filename": "flicker_black_and_white.frames.json",
     "duration": 1593.8,
     "fps": 25,
     "numberOfFrames": 39845,
