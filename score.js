@@ -3,16 +3,16 @@
 
 var renderer = new frampton.Renderer({
   mediaConfig: mediaConfig,
-  timeToLoadVideo: 11000,
+  timeToLoadVideo: 14000,
   videoSourceMaker: function(filename) {
     return '/media/' + filename;
   }
 });
 
 var loadTime = renderer.timeToLoadVideo;
-var titleFadeTime = 4666;
+var titleFadeTime = 7666;
 var startLoadingIndicatorTime = titleFadeTime + 1200;
-var totalLoadingIndicatorTime = loadTime - startLoadingIndicatorTime - 800;
+var totalLoadingIndicatorTime = loadTime - startLoadingIndicatorTime - 1600;
 
 /// DOM
 
@@ -46,8 +46,7 @@ function changeLoadingColor() {
 }
 
 setTimeout(function() {
-  var titleEl = document.querySelector('.film-title');
-  titleEl.classList.add('transparent');
+  document.querySelector('.work-note').classList.add('transparent');
 }, titleFadeTime);
 
 setTimeout(function() {
