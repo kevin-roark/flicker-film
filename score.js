@@ -4,7 +4,6 @@
 var renderer = new frampton.Renderer({
   mediaConfig: mediaConfig,
   timeToLoadVideo: 5000,
-  log: true,
   videoSourceMaker: function(filename) {
     return '/media/' + filename;
   }
@@ -15,9 +14,8 @@ var startTime = new Date();
 function changeLoadingColor() {
   var timeSinceStart = (new Date()) - startTime;
   var percentLoaded = Math.min(1, timeSinceStart / loadTime);
-  console.log(percentLoaded);
 
-  loadingIndicator.style.height = 125 + percentLoaded * 375;
+  loadingIndicator.style.height = (50 + percentLoaded * 250) + 'px';
 }
 
 changeLoadingColor();
@@ -57,11 +55,10 @@ window.addEventListener('keypress', function(ev) {
 }, false);
 
 setTimeout(function() {
-  console.log(loadTime);
   loadingIndicator.classList.add('transparent');
   clearInterval(loadingInterval);
 }, loadTime);
 
 setTimeout(function() {
   titleEl.classList.add('transparent');
-}, loadTime + 3000);
+}, loadTime + 5000);
