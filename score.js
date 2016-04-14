@@ -3,14 +3,14 @@
 
 var renderer = new frampton.Renderer({
   mediaConfig: mediaConfig,
-  timeToLoadVideo: 14000,
+  timeToLoadVideo: 17500,
   videoSourceMaker: function(filename) {
     return '/media/' + filename;
   }
 });
 
 var loadTime = renderer.timeToLoadVideo;
-var titleFadeTime = 7666;
+var titleFadeTime = 11000;
 var startLoadingIndicatorTime = titleFadeTime + 1200;
 var totalLoadingIndicatorTime = loadTime - startLoadingIndicatorTime - 1600;
 
